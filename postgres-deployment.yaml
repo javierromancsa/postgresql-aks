@@ -4,6 +4,9 @@ metadata:
   name: postgres
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
   template:
     metadata:
       labels:
@@ -13,6 +16,13 @@ spec:
         - name: postgres
           image: postgres:10.4
           imagePullPolicy: "IfNotPresent"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
           ports:
             - containerPort: 5432
           envFrom:
